@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3 uid="uid://bs350rresymen"]
+
+[ext_resource type="Script" path="res://levels/level_base.gd" id="1_65mn3"]
+[ext_resource type="Texture2D" uid="uid://bo2mojx2uj547" path="res://assets/environment/back.png" id="2_2a2mq"]
+[ext_resource type="TileSet" uid="uid://dn505hopwb4de" path="res://assets/tilesets/tiles_items.tres" id="2_8pw78"]
+[ext_resource type="Texture2D" uid="uid://udsqx8tc27vb" path="res://assets/environment/middle.png" id="3_8ndli"]
+[ext_resource type="TileSet" uid="uid://dhxw3f8l2saqn" path="res://assets/tilesets/tiles_world.tres" id="3_qw28s"]
+[ext_resource type="TileSet" uid="uid://blhd0ogpuydej" path="res://assets/tilesets/tiles_spikes.tres" id="4_v3cne"]
+[ext_resource type="PackedScene" uid="uid://df0vg1qqxnk32" path="res://player.tscn" id="5_8od8r"]
+[ext_resource type="PackedScene" uid="uid://c6lk25sm0ubrq" path="res://UI/hud.tscn" id="8_t8sea"]
+[ext_resource type="AudioStream" uid="uid://cqeht1w6ua5n1" path="res://assets/audio/pickup2.ogg" id="9_i5u1d"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_65mn3")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.2, 1)
+motion_mirroring = Vector2(576, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(0, -200)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_2a2mq")
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.6, 1)
+motion_mirroring = Vector2(880, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+texture_repeat = 3
+position = Vector2(254, 99)
+texture = ExtResource("3_8ndli")
+region_enabled = true
+region_rect = Rect2(0, 0, 880, 368)
+
+[node name="World" type="TileMap" parent="."]
+tile_set = ExtResource("3_qw28s")
+format = 2
+
+[node name="Items" type="TileMap" parent="."]
+tile_set = ExtResource("2_8pw78")
+format = 2
+
+[node name="Danger" type="TileMap" parent="." groups=["danger"]]
+tile_set = ExtResource("4_v3cne")
+format = 2
+
+[node name="Player" parent="." instance=ExtResource("5_8od8r")]
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(14, -3)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("8_t8sea")]
+
+[node name="Pickup" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_i5u1d")
+volume_db = -7.0
+max_polyphony = 4
+
+[connection signal="score_changed" from="." to="CanvasLayer/HUD" method="update_score"]
+[connection signal="died" from="Player" to="." method="_on_player_died"]
+[connection signal="life_changed" from="Player" to="CanvasLayer/HUD" method="update_life"]

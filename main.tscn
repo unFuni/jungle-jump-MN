@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dagl1avt82u0a"]
+
+[ext_resource type="Script" uid="uid://bv5njktin62a" path="res://main.gd" id="1_4ne04"]
+[ext_resource type="AudioStream" uid="uid://cw4cpwqridfss" path="res://assets/audio/Grasslands Theme.ogg" id="2_n8udk"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_4ne04")
+
+[node name="GrasslandsMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_n8udk")
+volume_db = -5.0
+max_polyphony = 3
+parameters/looping = true

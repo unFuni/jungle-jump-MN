@@ -1,0 +1,196 @@
+[gd_scene load_steps=12 format=3 uid="uid://plqpq58epkuw"]
+
+[ext_resource type="Texture2D" uid="uid://di4gtmod0tw2q" path="res://assets/environment/back.png" id="1_oej60"]
+[ext_resource type="Texture2D" uid="uid://uwmlp1m366nc" path="res://assets/environment/middle.png" id="2_yfcig"]
+[ext_resource type="FontFile" uid="uid://ca4pjsal5akrp" path="res://assets/Kenney Thick.ttf" id="3_2bgeo"]
+[ext_resource type="Script" uid="uid://471fb0lvnqqq" path="res://UI/title.gd" id="4_t73ag"]
+[ext_resource type="AudioStream" uid="uid://deiblp4w0fc25" path="res://assets/audio/Intro Theme.ogg" id="5_da1wc"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xfm88"]
+font = ExtResource("3_2bgeo")
+font_size = 72
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 16
+
+[sub_resource type="LabelSettings" id="LabelSettings_xmchi"]
+font = ExtResource("3_2bgeo")
+font_size = 48
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_j16y3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Title:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-932, 279)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Message:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(271, -150)]
+}
+
+[sub_resource type="Animation" id="Animation_n2s1f"]
+resource_name = "intro"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Title:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-932, 279), Vector2(216, 283.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Message:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.733333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(271, -150), Vector2(271, -150), Vector2(272, 202)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ak51t"]
+_data = {
+&"RESET": SubResource("Animation_j16y3"),
+&"intro": SubResource("Animation_n2s1f")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_jv4n2"]
+font = ExtResource("3_2bgeo")
+font_size = 20
+font_color = Color(0.848324, 0.516443, 0.504782, 1)
+outline_size = 14
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_oej60")
+stretch_mode = 6
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -43.0
+offset_top = 298.0
+offset_right = 1209.0
+offset_bottom = 666.0
+texture = ExtResource("2_yfcig")
+stretch_mode = 1
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1508.0
+offset_top = -45.0
+offset_right = -788.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Jungle Jump"
+label_settings = SubResource("LabelSettings_xfm88")
+script = ExtResource("4_t73ag")
+
+[node name="Music" type="AudioStreamPlayer2D" parent="Title"]
+position = Vector2(56, -81.5)
+stream = ExtResource("5_da1wc")
+volume_db = -3.0
+
+[node name="Message" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -417.0
+offset_top = -54.0
+offset_right = 417.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Press Space To Play"
+label_settings = SubResource("LabelSettings_xmchi")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ak51t")
+}
+autoplay = "intro"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -305.0
+offset_top = -150.0
+offset_right = 308.0
+offset_bottom = -85.0
+grow_horizontal = 2
+text = "Collect all 4 Cherries"
+label_settings = SubResource("LabelSettings_jv4n2")
+horizontal_alignment = 1
